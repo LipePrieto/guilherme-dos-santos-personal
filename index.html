@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Nexus Vital | Movimento com individualidade</title>
+  <meta name="description" content="Acompanhamento individualizado para pessoas com fibromialgia que desejam construir uma relação mais segura, consciente e possível com o movimento.">
+  <meta name="theme-color" content="#003a5d">
+
+  <meta property="og:title" content="Nexus Vital | Movimento com individualidade">
+  <meta property="og:description" content="Treinar com fibromialgia pode ser diferente. Conheça uma proposta de acompanhamento individualizado.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/images/og-image.svg">
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="page-loader" id="page-loader" aria-hidden="true">
+    <div class="loader-symbol">
+      <span>N</span><span>V</span>
+    </div>
+    <div class="loader-line"><span></span></div>
+    <small>Preparando a experiência</small>
+  </div>
+
+  <div class="scroll-progress" aria-hidden="true">
+    <span id="scroll-progress-bar"></span>
+  </div>
+
+  <div class="cursor-aura" id="cursor-aura" aria-hidden="true"></div>
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="site-header" id="inicio">
+    <div class="container header-inner">
+      <a href="#inicio" class="brand" aria-label="Nexus Vital — início">
+        <span class="brand-mark" aria-hidden="true">NV</span>
+        <span class="brand-copy">
+          <strong>NEXUS VITAL</strong>
+          <small>por Guilherme dos Santos</small>
+        </span>
+      </a>
+
+      <div class="header-controls">
+        <button class="motion-toggle" id="motion-toggle" type="button"
+                aria-label="Reduzir efeitos visuais" aria-pressed="false">
+          <i class="ph ph-sparkle"></i>
+          <span>Efeitos</span>
+        </button>
+
+        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+      <nav class="main-nav" id="main-nav" aria-label="Navegação principal">
+        <a href="#metodo">O método</a>
+        <a href="#para-quem">Para quem é</a>
+        <a href="#guilherme">Sobre o Guilherme</a>
+        <a href="#faq">Dúvidas</a>
+        <a href="#contato" class="nav-cta js-whatsapp">Conhecer o método</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero">
+      <canvas class="nexus-network" id="nexus-network" aria-hidden="true"></canvas>
+      <div class="hero-spotlight" id="hero-spotlight" aria-hidden="true"></div>
+      <div class="hero-glow hero-glow-one"></div>
+      <div class="hero-glow hero-glow-two"></div>
+
+      <div class="hero-orbit hero-orbit-one" aria-hidden="true">
+        <span></span>
+      </div>
+      <div class="hero-orbit hero-orbit-two" aria-hidden="true">
+        <span></span>
+      </div>
+
+      <div class="container hero-grid">
+        <div class="hero-copy" data-reveal>
+          <span class="eyebrow">Movimento com escuta, estratégia e individualidade</span>
+
+          <h1 class="kinetic-title" data-kinetic>Treinar com fibromialgia pode ser diferente.</h1>
+
+          <p class="hero-lead">
+            Um acompanhamento individualizado para quem quer voltar a se movimentar
+            com mais segurança, confiança e leveza.
+          </p>
+
+          <p class="hero-support">
+            O Método Nexus Vital foi criado para tornar o exercício possível,
+            respeitando o corpo, a rotina e os dias bons e difíceis de quem convive
+            com a fibromialgia.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#contato" class="button button-primary js-whatsapp" data-magnetic>
+              Quero conhecer o método
+              <i class="ph ph-arrow-right"></i>
+            </a>
+            <a href="#identificacao" class="button button-secondary" data-magnetic>
+              Entender a proposta
+              <i class="ph ph-arrow-down"></i>
+            </a>
+          </div>
+
+          <div class="hero-note">
+            <i class="ph ph-shield-check"></i>
+            <span>Acompanhamento individualizado e adaptado à realidade de cada pessoa.</span>
+          </div>
+        </div>
+
+        <div class="hero-visual" data-reveal>
+          <div class="media-placeholder media-placeholder-hero interactive-surface" data-tilt data-depth="14">
+            <span class="placeholder-label">FOTO PRINCIPAL</span>
+            <i class="ph ph-image"></i>
+            <strong>Adicionar foto do Guilherme</strong>
+            <small>Imagem vertical, com boa iluminação e fundo limpo</small>
+          </div>
+
+          <div class="floating-card floating-card-top">
+            <span class="floating-icon"><i class="ph ph-person-simple-walk"></i></span>
+            <div>
+              <small>Uma nova relação</small>
+              <strong>com o movimento</strong>
+            </div>
+          </div>
+
+          <div class="floating-card floating-card-bottom">
+            <span class="floating-icon"><i class="ph ph-heartbeat"></i></span>
+            <div>
+              <small>Estratégia que respeita</small>
+              <strong>o seu ritmo</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-scroll">
+        <span>Continue</span>
+        <i class="ph ph-arrow-down"></i>
+      </div>
+    </section>
+
+    <section class="motion-marquee" aria-label="Pilares do Nexus Vital">
+      <div class="marquee-track">
+        <span>INDIVIDUALIDADE</span><i></i>
+        <span>ESCUTA</span><i></i>
+        <span>ESTRATÉGIA</span><i></i>
+        <span>MOVIMENTO POSSÍVEL</span><i></i>
+        <span>ACOMPANHAMENTO</span><i></i>
+        <span>INDIVIDUALIDADE</span><i></i>
+        <span>ESCUTA</span><i></i>
+        <span>ESTRATÉGIA</span><i></i>
+        <span>MOVIMENTO POSSÍVEL</span><i></i>
+        <span>ACOMPANHAMENTO</span><i></i>
+      </div>
+    </section>
+
+    <section class="section section-light" id="identificacao">
+      <div class="container narrow">
+        <div class="section-heading centered" data-reveal>
+          <span class="script-label">Talvez você se reconheça aqui</span>
+          <h2>O problema nunca foi simplesmente falta de força de vontade.</h2>
+        </div>
+
+        <div class="identification-card" data-reveal>
+          <p>Você já tentou começar a treinar e acabou desistindo?</p>
+
+          <div class="identification-grid">
+            <article>
+              <i class="ph ph-barbell"></i>
+              <span>Talvez os treinos tenham sido intensos demais.</span>
+            </article>
+            <article>
+              <i class="ph ph-wave-sine"></i>
+              <span>Talvez uma crise tenha feito você perder o ritmo.</span>
+            </article>
+            <article>
+              <i class="ph ph-users"></i>
+              <span>Talvez os profissionais não tenham compreendido que o seu corpo não responde da mesma forma todos os dias.</span>
+            </article>
+            <article>
+              <i class="ph ph-brain"></i>
+              <span>Ou talvez você tenha aprendido a acreditar que a dor era algo que precisava apenas ser aceita.</span>
+            </article>
+          </div>
+
+          <blockquote>
+            Existe uma diferença entre não conseguir manter um treino e ainda não ter
+            encontrado um treino que respeite a sua realidade.
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section class="section perspective-section" id="perspectiva">
+      <div class="container">
+        <div class="perspective-heading" data-reveal>
+          <div>
+            <span class="section-kicker">Mude a perspectiva</span>
+            <h2>Não é colocar a pessoa dentro de uma ficha. É construir a estratégia ao redor da pessoa.</h2>
+          </div>
+          <p>
+            Selecione uma das propostas abaixo e veja como muda a forma de pensar o treinamento.
+          </p>
+        </div>
+
+        <div class="comparison-switcher" id="comparison-switcher" data-reveal>
+          <div class="comparison-tabs" role="tablist" aria-label="Comparação entre treino padrão e Nexus Vital">
+            <button
+              class="comparison-tab"
+              id="tab-generic"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="panel-generic"
+              data-comparison-tab="generic">
+              <span class="comparison-tab-icon"><i class="ph ph-file-text"></i></span>
+              <span>
+                <small>Modelo tradicional</small>
+                <strong>Treino padrão</strong>
+              </span>
+            </button>
+
+            <button
+              class="comparison-tab active"
+              id="tab-nexus"
+              type="button"
+              role="tab"
+              aria-selected="true"
+              aria-controls="panel-nexus"
+              data-comparison-tab="nexus">
+              <span class="comparison-tab-icon"><i class="ph ph-fingerprint"></i></span>
+              <span>
+                <small>Proposta individualizada</small>
+                <strong>Método Nexus Vital</strong>
+              </span>
+            </button>
+          </div>
+
+          <div class="comparison-stage">
+            <article
+              class="comparison-view comparison-view-generic"
+              id="panel-generic"
+              role="tabpanel"
+              aria-labelledby="tab-generic"
+              data-comparison-panel="generic"
+              hidden>
+              <div class="comparison-view-content">
+                <span class="comparison-view-label">TREINO PADRÃO</span>
+                <div class="comparison-view-symbol"><i class="ph ph-file-text"></i></div>
+                <h3>A pessoa tenta se adaptar a uma ficha que já estava pronta.</h3>
+                <p>
+                  O planejamento começa pelo treino e, somente depois, tenta encaixar nele
+                  a rotina, os limites e as respostas de quem vai executá-lo.
+                </p>
+
+                <div class="comparison-points">
+                  <div>
+                    <i class="ph ph-x"></i>
+                    <span>O ritmo é definido antes de conhecer a realidade da pessoa.</span>
+                  </div>
+                  <div>
+                    <i class="ph ph-x"></i>
+                    <span>A mesma lógica pode ser usada para corpos e momentos diferentes.</span>
+                  </div>
+                  <div>
+                    <i class="ph ph-x"></i>
+                    <span>Os ajustes costumam acontecer apenas depois que algo não funciona.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="comparison-view-graphic" aria-hidden="true">
+                <div class="generic-sheet">
+                  <span></span><span></span><span></span><span></span>
+                  <i class="ph ph-user"></i>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="comparison-view comparison-view-nexus active"
+              id="panel-nexus"
+              role="tabpanel"
+              aria-labelledby="tab-nexus"
+              data-comparison-panel="nexus">
+              <div class="comparison-view-content">
+                <span class="comparison-view-label">NEXUS VITAL</span>
+                <div class="comparison-view-symbol"><i class="ph ph-fingerprint"></i></div>
+                <h3>A estratégia é construída a partir da pessoa e acompanha sua realidade.</h3>
+                <p>
+                  A história, a rotina, as dores, os objetivos e a relação com o exercício
+                  são considerados antes de definir o planejamento.
+                </p>
+
+                <div class="comparison-points">
+                  <div>
+                    <i class="ph ph-check"></i>
+                    <span>A história e a rotina vêm antes da prescrição.</span>
+                  </div>
+                  <div>
+                    <i class="ph ph-check"></i>
+                    <span>O planejamento já nasce individualizado.</span>
+                  </div>
+                  <div>
+                    <i class="ph ph-check"></i>
+                    <span>O acompanhamento permite ajustes durante todo o processo.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="comparison-view-graphic" aria-hidden="true">
+                <div class="nexus-orbit-graphic">
+                  <span class="orbit-center"><i class="ph ph-user"></i></span>
+                  <span class="orbit-item orbit-item-one"><i class="ph ph-calendar-check"></i></span>
+                  <span class="orbit-item orbit-item-two"><i class="ph ph-heartbeat"></i></span>
+                  <span class="orbit-item orbit-item-three"><i class="ph ph-chart-line-up"></i></span>
+                  <span class="orbit-item orbit-item-four"><i class="ph ph-chat-circle-text"></i></span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <p class="comparison-caption" data-reveal>
+          A estratégia precisa se adaptar à pessoa. Não o contrário.
+        </p>
+      </div>
+    </section>
+
+    <section class="section authority-section">
+      <div class="container authority-grid">
+        <div class="media-placeholder media-placeholder-authority interactive-surface" data-tilt data-depth="10" data-reveal>
+          <span class="placeholder-label">FOTO OU VÍDEO</span>
+          <i class="ph ph-play-circle"></i>
+          <strong>Adicionar apresentação do método</strong>
+          <small>Pode ser uma foto de atendimento ou vídeo curto do Guilherme</small>
+        </div>
+
+        <div class="authority-copy" data-reveal>
+          <span class="section-kicker">Por que o Nexus Vital nasceu</span>
+          <h2>Eu não comecei o Nexus Vital porque queria criar apenas mais um método.</h2>
+
+          <p>
+            Ele começou quando percebi que os métodos tradicionais de treinamento nem
+            sempre conversavam com a realidade de quem convive com fibromialgia.
+          </p>
+
+          <p>
+            Minha primeira experiência acompanhando uma pessoa com fibromialgia me
+            mostrou que eu precisava olhar para além do exercício.
+          </p>
+
+          <div class="word-stack" aria-label="Era necessário entender">
+            <span>Entender a pessoa.</span>
+            <span>Sua rotina.</span>
+            <span>Suas limitações.</span>
+            <span>Suas dores.</span>
+            <span>Seus dias bons e seus dias difíceis.</span>
+          </div>
+
+          <p>
+            Foi a partir dessa experiência que comecei a desenvolver uma forma
+            diferente de pensar o treinamento para esse público.
+          </p>
+
+          <p>
+            Hoje, meu trabalho une conhecimento técnico, individualidade e
+            humanização para construir uma experiência de treino que faça sentido
+            para cada pessoa.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section method-section" id="metodo">
+      <div class="container">
+        <div class="section-heading method-heading" data-reveal>
+          <div>
+            <span class="section-kicker">O Método Nexus Vital</span>
+            <h2>Uma estratégia que começa pela pessoa, não por uma ficha pronta.</h2>
+          </div>
+          <p>
+            A metodologia nasce pensando na realidade de quem convive com
+            fibromialgia e é construída em quatro pilares.
+          </p>
+        </div>
+
+        <div class="method-grid">
+          <article class="method-card interactive-surface" data-reveal data-tilt data-depth="8">
+            <span class="method-number">01</span>
+            <div class="method-icon"><i class="ph ph-fingerprint"></i></div>
+            <h3>Individualidade</h3>
+            <p class="method-highlight">Seu corpo tem uma história. E nós a ouvimos.</p>
+            <p>
+              Tudo começa com uma anamnese exclusiva e aprofundada. Entendemos sua
+              história, rotina, dores, crises, objetivos e sua relação com o exercício.
+            </p>
+            <p>Antes de pensar no treino, precisamos entender quem está por trás dele.</p>
+          </article>
+
+          <article class="method-card interactive-surface" data-reveal data-tilt data-depth="8">
+            <span class="method-number">02</span>
+            <div class="method-icon"><i class="ph ph-compass-tool"></i></div>
+            <h3>Estratégia</h3>
+            <p>
+              A partir das informações coletadas, identificamos suas necessidades e
+              particularidades para construir uma estratégia realmente individualizada.
+            </p>
+            <p>
+              O método não parte de um treino pronto para depois adaptá-lo à
+              fibromialgia. A metodologia já nasce considerando essa realidade.
+            </p>
+          </article>
+
+          <article class="method-card interactive-surface" data-reveal data-tilt data-depth="8">
+            <span class="method-number">03</span>
+            <div class="method-icon"><i class="ph ph-calendar-check"></i></div>
+            <h3>Planejamento</h3>
+            <p>
+              O treinamento é planejado considerando que seu corpo pode responder de
+              maneiras diferentes ao longo do tempo.
+            </p>
+            <p>
+              A estratégia respeita crises, rotina e sinais do corpo, buscando tornar
+              o movimento uma experiência possível e sustentável.
+            </p>
+          </article>
+
+          <article class="method-card interactive-surface" data-reveal data-tilt data-depth="8">
+            <span class="method-number">04</span>
+            <div class="method-icon"><i class="ph ph-chart-line-up"></i></div>
+            <h3>Acompanhamento</h3>
+            <p>
+              O acompanhamento é individualizado e próximo, permitindo observar sua
+              evolução, compreender respostas ao treinamento e realizar ajustes ao
+              longo do processo.
+            </p>
+            <p>
+              A proposta é evoluir no seu ritmo, com segurança e uma estratégia que
+              funcione para o seu corpo.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section outcomes-section">
+      <div class="container outcomes-grid">
+        <div class="outcomes-copy" data-reveal>
+          <span class="section-kicker">O que buscamos construir</span>
+          <h2>Mais autonomia, confiança e consistência na sua relação com o movimento.</h2>
+          <p>
+            O acompanhamento é pensado para apoiar mudanças reais na rotina,
+            respeitando as respostas individuais de cada pessoa.
+          </p>
+
+          <a href="#contato" class="text-link js-whatsapp">
+            Conversar sobre o acompanhamento
+            <i class="ph ph-arrow-up-right"></i>
+          </a>
+        </div>
+
+        <div class="outcomes-list">
+          <article data-reveal data-spotlight-card>
+            <i class="ph ph-activity"></i>
+            <div>
+              <h3>Mais segurança para se movimentar</h3>
+              <p>Com uma estratégia adaptada à sua realidade e aos sinais do seu corpo.</p>
+            </div>
+          </article>
+          <article data-reveal data-spotlight-card>
+            <i class="ph ph-battery-high"></i>
+            <div>
+              <h3>Mais disposição para a rotina</h3>
+              <p>Construindo hábitos de movimento possíveis e sustentáveis.</p>
+            </div>
+          </article>
+          <article data-reveal data-spotlight-card>
+            <i class="ph ph-person-simple"></i>
+            <div>
+              <h3>Mais liberdade nos movimentos do dia a dia</h3>
+              <p>Desenvolvendo capacidades físicas de forma gradual e individualizada.</p>
+            </div>
+          </article>
+          <article data-reveal data-spotlight-card>
+            <i class="ph ph-trend-up"></i>
+            <div>
+              <h3>Mais consistência nos treinos</h3>
+              <p>Com acompanhamento, ajustes e metas compatíveis com o seu momento.</p>
+            </div>
+          </article>
+          <article data-reveal data-spotlight-card>
+            <i class="ph ph-smiley"></i>
+            <div>
+              <h3>Uma relação mais leve com o exercício</h3>
+              <p>Sem a obrigação de acompanhar o ritmo ou o treino de outras pessoas.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section audience-section" id="para-quem">
+      <div class="container">
+        <div class="section-heading centered audience-heading" data-reveal>
+          <span class="script-label">Para quem é</span>
+          <h2>O Nexus Vital pode fazer sentido para você que...</h2>
+        </div>
+
+        <div class="audience-grid">
+          <article class="audience-card interactive-surface" data-reveal data-tilt data-depth="5">
+            <i class="ph ph-check-circle"></i>
+            <p>Convive com fibromialgia e deseja começar a se exercitar.</p>
+          </article>
+          <article class="audience-card interactive-surface" data-reveal data-tilt data-depth="5">
+            <i class="ph ph-check-circle"></i>
+            <p>Já tentou frequentar academia, mas não conseguiu manter a rotina.</p>
+          </article>
+          <article class="audience-card interactive-surface" data-reveal data-tilt data-depth="5">
+            <i class="ph ph-check-circle"></i>
+            <p>Sente insegurança sobre como treinar respeitando suas limitações.</p>
+          </article>
+          <article class="audience-card interactive-surface" data-reveal data-tilt data-depth="5">
+            <i class="ph ph-check-circle"></i>
+            <p>Está cansada de sentir que precisa acompanhar o ritmo de outras pessoas.</p>
+          </article>
+          <article class="audience-card interactive-surface" data-reveal data-tilt data-depth="5">
+            <i class="ph ph-check-circle"></i>
+            <p>Busca um acompanhamento realmente individualizado.</p>
+          </article>
+          <article class="audience-card interactive-surface" data-reveal data-tilt data-depth="5">
+            <i class="ph ph-check-circle"></i>
+            <p>Quer construir uma relação mais leve e possível com o exercício.</p>
+          </article>
+        </div>
+
+        <div class="experience-banner" data-reveal>
+          <div>
+            <span class="experience-question">Quantas vezes você começou e parou?</span>
+            <p>
+              Não porque não queria, mas porque o treino não conversava com a sua
+              realidade.
+            </p>
+          </div>
+          <blockquote>
+            A estratégia precisa se adaptar à pessoa. Não o contrário.
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section class="section social-section" id="resultados">
+      <div class="container">
+        <div class="section-heading centered" data-reveal>
+          <span class="section-kicker">Experiências reais</span>
+          <h2>Histórias de quem passou a enxergar o movimento de outra forma.</h2>
+          <p class="section-description">
+            Esta seção está preparada para receber depoimentos e resultados
+            autorizados.
+          </p>
+        </div>
+
+        <div class="social-grid">
+          <article class="testimonial-placeholder interactive-surface" data-reveal data-tilt data-depth="7">
+            <span class="placeholder-label">DEPOIMENTO 01</span>
+            <i class="ph ph-quotes"></i>
+            <p>Adicionar relato real e autorizado de uma aluna.</p>
+            <small>Nome, idade e cidade são opcionais.</small>
+          </article>
+          <article class="testimonial-placeholder interactive-surface" data-reveal data-tilt data-depth="7">
+            <span class="placeholder-label">DEPOIMENTO 02</span>
+            <i class="ph ph-quotes"></i>
+            <p>Adicionar relato real e autorizado de uma aluna.</p>
+            <small>Também pode ser um vídeo curto.</small>
+          </article>
+          <article class="testimonial-placeholder interactive-surface" data-reveal data-tilt data-depth="7">
+            <span class="placeholder-label">RESULTADO</span>
+            <i class="ph ph-image-square"></i>
+            <p>Adicionar foto, evolução ou dado real com autorização.</p>
+            <small>Evite promessas de resultado garantido.</small>
+          </article>
+        </div>
+
+        <div class="proof-review" data-reveal>
+          <i class="ph ph-warning-circle"></i>
+          <p>
+            O texto “mais de 100 mulheres” e o depoimento de exemplo não foram
+            publicados porque ainda precisam ser confirmados e autorizados.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section about-section" id="guilherme">
+      <div class="container about-grid">
+        <div class="about-visual" data-reveal>
+          <div class="media-placeholder media-placeholder-about interactive-surface" data-tilt data-depth="10">
+            <span class="placeholder-label">FOTO PROFISSIONAL</span>
+            <i class="ph ph-user-circle"></i>
+            <strong>Adicionar foto do Guilherme</strong>
+            <small>Preferencialmente em ambiente de treino ou atendimento</small>
+          </div>
+
+          <div class="about-signature">Guilherme</div>
+        </div>
+
+        <div class="about-copy" data-reveal>
+          <span class="section-kicker">Sobre o Guilherme</span>
+          <h2>Ninguém deveria precisar escolher entre cuidar do corpo e respeitar seus próprios limites.</h2>
+
+          <p>
+            Sou Guilherme dos Santos, professor e personal trainer, com experiência
+            em treinamento e acompanhamento individualizado.
+          </p>
+
+          <p>
+            Minha trajetória foi construída dentro da Educação Física e, ao longo
+            dos anos, fui entendendo que bons resultados não vêm apenas de prescrever
+            exercícios. Eles vêm de saber quem está executando aquele exercício.
+          </p>
+
+          <p>
+            Hoje, meu trabalho é ajudar pessoas a construírem uma relação mais
+            possível, consciente e consistente com o movimento.
+          </p>
+
+          <p>
+            E, para quem convive com fibromialgia, essa missão ganhou um propósito
+            ainda maior através do Método Nexus Vital.
+          </p>
+
+          <div class="credentials-pending">
+            <div>
+              <i class="ph ph-certificate"></i>
+              <span>
+                <small>Formação</small>
+                <strong>Adicionar formação acadêmica</strong>
+              </span>
+            </div>
+            <div>
+              <i class="ph ph-identification-card"></i>
+              <span>
+                <small>Registro profissional</small>
+                <strong>Adicionar número do CREF</strong>
+              </span>
+            </div>
+          </div>
+
+          <a class="instagram-link" href="https://www.instagram.com/guisantos.prof/" target="_blank" rel="noopener">
+            <i class="ph ph-instagram-logo"></i>
+            @guisantos.prof
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section faq-section" id="faq">
+      <div class="container faq-grid">
+        <div class="faq-heading" data-reveal>
+          <span class="section-kicker">Perguntas frequentes</span>
+          <h2>Antes de começar, é normal ter dúvidas.</h2>
+          <p>
+            As respostas abaixo estão redigidas de maneira provisória e devem ser
+            validadas pelo Guilherme antes da publicação definitiva.
+          </p>
+        </div>
+
+        <div class="faq-list">
+          <article class="faq-item" data-reveal>
+            <button class="faq-question" aria-expanded="false">
+              <span>Preciso estar treinando atualmente para começar?</span>
+              <i class="ph ph-plus"></i>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Não. O acompanhamento pode começar a partir do seu momento atual,
+                inclusive se você estiver sem uma rotina de exercícios.
+              </p>
+            </div>
+          </article>
+
+          <article class="faq-item" data-reveal>
+            <button class="faq-question" aria-expanded="false">
+              <span>E se eu estiver passando por uma crise?</span>
+              <i class="ph ph-plus"></i>
+            </button>
+            <div class="faq-answer">
+              <p>
+                O planejamento considera as variações do corpo e pode precisar de
+                ajustes. Situações de saúde devem ser compartilhadas com os
+                profissionais responsáveis pelo seu acompanhamento.
+              </p>
+            </div>
+          </article>
+
+          <article class="faq-item" data-reveal>
+            <button class="faq-question" aria-expanded="false">
+              <span>O treino é individualizado?</span>
+              <i class="ph ph-plus"></i>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Sim. A proposta começa com uma avaliação da sua história, rotina,
+                objetivos, limitações e relação com o exercício.
+              </p>
+            </div>
+          </article>
+
+          <article class="faq-item" data-reveal>
+            <button class="faq-question" aria-expanded="false">
+              <span>Preciso ir à academia?</span>
+              <i class="ph ph-plus"></i>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Isso depende do formato do acompanhamento e dos recursos disponíveis.
+                Esta resposta deve ser confirmada pelo Guilherme.
+              </p>
+            </div>
+          </article>
+
+          <article class="faq-item" data-reveal>
+            <button class="faq-question" aria-expanded="false">
+              <span>Como funciona o acompanhamento online?</span>
+              <i class="ph ph-plus"></i>
+            </button>
+            <div class="faq-answer">
+              <p>
+                O formato, a frequência dos contatos, a plataforma e os materiais
+                utilizados ainda precisam ser detalhados pelo Guilherme.
+              </p>
+            </div>
+          </article>
+
+          <article class="faq-item" data-reveal>
+            <button class="faq-question" aria-expanded="false">
+              <span>O método substitui acompanhamento médico ou fisioterapêutico?</span>
+              <i class="ph ph-plus"></i>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Não. O acompanhamento de treinamento não substitui avaliação,
+                diagnóstico ou tratamento médico, fisioterapêutico ou de outros
+                profissionais de saúde.
+              </p>
+            </div>
+          </article>
+
+          <article class="faq-item" data-reveal>
+            <button class="faq-question" aria-expanded="false">
+              <span>E se eu já tentei treinar antes e não consegui manter?</span>
+              <i class="ph ph-plus"></i>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Essa experiência faz parte da avaliação. O objetivo é entender o que
+                não funcionou e construir uma estratégia mais compatível com a sua
+                realidade.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta" id="contato">
+      <div class="container final-cta-inner" data-reveal>
+        <span class="script-label">Talvez o próximo passo não seja treinar mais.</span>
+        <h2>Talvez seja encontrar uma forma de treinar que faça sentido para o seu corpo.</h2>
+        <p>Conheça o Método Nexus Vital.</p>
+
+        <a href="#" class="button button-light button-large js-whatsapp" data-magnetic>
+          Quero conhecer o método
+          <i class="ph ph-whatsapp-logo"></i>
+        </a>
+
+        <small class="contact-status" id="contact-status">
+          WhatsApp ainda não informado — adicione no arquivo config.js
+        </small>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="#inicio" class="brand brand-footer">
+          <span class="brand-mark">NV</span>
+          <span class="brand-copy">
+            <strong>NEXUS VITAL</strong>
+            <small>por Guilherme dos Santos</small>
+          </span>
+        </a>
+        <p>
+          Movimento com individualidade, escuta e estratégia para pessoas que
+          convivem com fibromialgia.
+        </p>
+      </div>
+
+      <div>
+        <strong>Navegação</strong>
+        <a href="#metodo">O método</a>
+        <a href="#para-quem">Para quem é</a>
+        <a href="#guilherme">Sobre o Guilherme</a>
+        <a href="#faq">Perguntas frequentes</a>
+      </div>
+
+      <div>
+        <strong>Contato</strong>
+        <a href="https://www.instagram.com/guisantos.prof/" target="_blank" rel="noopener">
+          <i class="ph ph-instagram-logo"></i>
+          @guisantos.prof
+        </a>
+        <a href="#" class="js-whatsapp">
+          <i class="ph ph-whatsapp-logo"></i>
+          WhatsApp a definir
+        </a>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>© <span id="current-year"></span> Nexus Vital. Todos os direitos reservados.</p>
+      <p>
+        O conteúdo deste site é informativo e não substitui acompanhamento médico,
+        fisioterapêutico ou de outros profissionais de saúde.
+      </p>
+    </div>
+  </footer>
+
+  <a href="#" class="whatsapp-float js-whatsapp" aria-label="Falar pelo WhatsApp">
+    <i class="ph ph-whatsapp-logo"></i>
+  </a>
+
+  <button class="back-to-top" id="back-to-top" aria-label="Voltar ao topo">
+    <i class="ph ph-arrow-up"></i>
+  </button>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
