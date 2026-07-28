@@ -1,0 +1,10 @@
+# robots.txt — Nexus Vital
+#
+# ATENÇÃO: substitua "https://www.SEU-DOMINIO-AQUI.com.br" pela URL
+# final do site assim que ela for definida (o mesmo endereço usado
+# em index.html e em sitemap.xml).
+
+User-agent: *
+Allow: /
+
+Sitemap: https://www.SEU-DOMINIO-AQUI.com.br/sitemap.xml

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ATENÇÃO: substitua "https://www.SEU-DOMINIO-AQUI.com.br" pela URL
+  final do site assim que ela for definida (o mesmo endereço usado
+  em index.html e em robots.txt).
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://www.SEU-DOMINIO-AQUI.com.br/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
