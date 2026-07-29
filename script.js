@@ -1,0 +1,867 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const config =
+    typeof SITE_CONFIG !== "undefined" ? SITE_CONFIG : {};
+
+  const header = document.querySelector(".site-header");
+  const menuToggle = document.getElementById("menu-toggle");
+  const mainNav = document.getElementById("main-nav");
+  const backToTop = document.getElementById("back-to-top");
+  const currentYear = document.getElementById("current-year");
+  const contactStatus = document.getElementById("contact-status");
+  const progressBar = document.getElementById("scroll-progress-bar");
+  const pageLoader = document.getElementById("page-loader");
+  const motionToggle = document.getElementById("motion-toggle");
+  const hero = document.querySelector(".hero");
+  const heroVisual = document.querySelector(".hero-visual");
+  const cursorAura = document.getElementById("cursor-aura");
+  const networkCanvas = document.getElementById("nexus-network");
+  const comparisonTabs = document.querySelectorAll("[data-comparison-tab]");
+  const comparisonPanels = document.querySelectorAll("[data-comparison-panel]");
+  const comparisonSwitcher = document.querySelector(".comparison-tabs");
+
+  const supportsHover = window.matchMedia("(hover: hover) and (pointer: fine)");
+  const systemReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const storedMotion = localStorage.getItem("nexus-motion");
+
+  const connection =
+    navigator.connection ||
+    navigator.mozConnection ||
+    navigator.webkitConnection;
+
+  const smallViewport = window.matchMedia("(max-width: 760px)").matches;
+  const limitedCpu =
+    typeof navigator.hardwareConcurrency === "number" &&
+    navigator.hardwareConcurrency <= 4;
+  const limitedMemory =
+    typeof navigator.deviceMemory === "number" &&
+    navigator.deviceMemory <= 4;
+  const saveDataEnabled = Boolean(connection?.saveData);
+
+  const lowPowerDevice =
+    smallViewport && (limitedCpu || limitedMemory || saveDataEnabled);
+
+  document.body.classList.toggle("low-power-device", lowPowerDevice);
+
+  let motionReduced =
+    storedMotion === "reduced" ||
+    (storedMotion === null && systemReducedMotion.matches);
+
+  let networkController = null;
+  let heroInViewport = true;
+
+  // ======================================================
+  // Initial experience
+  // ======================================================
+  if (currentYear) {
+    currentYear.textContent = new Date().getFullYear();
+  }
+
+  const professional = config?.profissional || {};
+
+  document.querySelectorAll("[data-profissional-nome]").forEach((element) => {
+    if (professional.nome) element.textContent = professional.nome;
+  });
+
+  document
+    .querySelectorAll("[data-profissional-instagram-link]")
+    .forEach((element) => {
+      if (professional.instagram) {
+        element.href = professional.instagram;
+        element.target = "_blank";
+        element.rel = "noopener";
+      }
+    });
+
+  document
+    .querySelectorAll("[data-profissional-instagram-usuario]")
+    .forEach((element) => {
+      if (professional.instagramUsuario) {
+        element.textContent = professional.instagramUsuario;
+      }
+    });
+
+  const applyCredential = (key, selector) => {
+    const value = String(professional[key] || "").trim();
+    const element = document.querySelector(selector);
+    const wrapper = document.querySelector(`[data-credential="${key}"]`);
+
+    if (element && value) element.textContent = value;
+    if (wrapper) wrapper.hidden = !value;
+  };
+
+  applyCredential("formacao", "[data-profissional-formacao]");
+  applyCredential("cref", "[data-profissional-cref]");
+
+  const splitKineticText = () => {
+    document.querySelectorAll("[data-kinetic]").forEach((element) => {
+      if (element.dataset.split === "true") return;
+
+      const words = element.textContent.trim().split(/\s+/);
+      element.innerHTML = words
+        .map(
+          (word, index) =>
+            `<span class="word" style="--word-index:${index}">${word}</span>`
+        )
+        .join(" ");
+
+      element.dataset.split = "true";
+    });
+  };
+
+  splitKineticText();
+
+  const loaderStorageKey = "nexus-loader-seen-v1";
+  let loaderWasSeen = false;
+
+  try {
+    loaderWasSeen = localStorage.getItem(loaderStorageKey) === "true";
+  } catch (error) {
+    loaderWasSeen = false;
+  }
+
+  const finishLoading = (rememberVisit = true) => {
+    document.body.classList.add("is-loaded");
+
+    if (rememberVisit) {
+      try {
+        localStorage.setItem(loaderStorageKey, "true");
+      } catch (error) {
+        // O site segue funcionando caso o armazenamento esteja bloqueado.
+      }
+    }
+
+    if (pageLoader) {
+      pageLoader.classList.add("is-hidden");
+      window.setTimeout(() => pageLoader.remove(), 850);
+    }
+  };
+
+  if (loaderWasSeen) {
+    document.body.classList.add("is-loaded");
+    pageLoader?.remove();
+  } else {
+    window.addEventListener("load", () => {
+      window.setTimeout(finishLoading, motionReduced ? 0 : 360);
+    });
+
+    window.setTimeout(() => {
+      if (!document.body.classList.contains("is-loaded")) finishLoading();
+    }, 2200);
+  }
+
+  // ======================================================
+
+  // Motion preference and explicit control
+  // ======================================================
+  const updateMotionButton = () => {
+    if (!motionToggle) return;
+
+    motionToggle.setAttribute("aria-pressed", String(motionReduced));
+    motionToggle.setAttribute(
+      "aria-label",
+      motionReduced ? "Ativar efeitos visuais" : "Reduzir efeitos visuais"
+    );
+
+    motionToggle.innerHTML = motionReduced
+      ? '<i class="ph ph-play"></i><span>Ativar</span>'
+      : '<i class="ph ph-sparkle"></i><span>Efeitos</span>';
+  };
+
+  const syncNetworkState = () => {
+    if (!networkController) return;
+
+    const shouldRun =
+      !motionReduced &&
+      !lowPowerDevice &&
+      heroInViewport &&
+      !document.hidden;
+
+    shouldRun ? networkController.start() : networkController.stop();
+  };
+
+  const applyMotionPreference = () => {
+    document.body.classList.toggle("motion-reduced", motionReduced);
+    updateMotionButton();
+    syncNetworkState();
+  };
+
+  applyMotionPreference();
+
+  if (motionToggle) {
+    motionToggle.addEventListener("click", () => {
+      motionReduced = !motionReduced;
+      localStorage.setItem(
+        "nexus-motion",
+        motionReduced ? "reduced" : "full"
+      );
+      applyMotionPreference();
+    });
+  }
+
+  document.addEventListener("visibilitychange", syncNetworkState);
+
+  // ======================================================
+
+  // Header, progress and navigation
+  // ======================================================
+  const updateScrollState = () => {
+    const scrollTop = window.scrollY;
+    const maxScroll =
+      document.documentElement.scrollHeight - window.innerHeight;
+    const progress =
+      maxScroll > 0 ? Math.min(100, (scrollTop / maxScroll) * 100) : 0;
+
+    document.documentElement.style.setProperty(
+      "--progress",
+      `${progress}%`
+    );
+
+    if (progressBar) {
+      progressBar.style.width = `${progress}%`;
+    }
+
+    if (header) {
+      header.classList.toggle("scrolled", scrollTop > 24);
+    }
+
+    if (backToTop) {
+      backToTop.classList.toggle("visible", scrollTop > 700);
+    }
+
+    if (heroVisual && hero && !motionReduced && window.innerWidth > 700) {
+      const heroHeight = hero.offsetHeight;
+      const localProgress = Math.min(1, scrollTop / heroHeight);
+      heroVisual.style.setProperty(
+        "--hero-parallax",
+        `${localProgress * 20}px`
+      );
+    }
+  };
+
+  updateScrollState();
+  window.addEventListener("scroll", updateScrollState, { passive: true });
+
+  const closeMenu = () => {
+    if (!menuToggle || !mainNav) return;
+    menuToggle.classList.remove("active");
+    mainNav.classList.remove("active");
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.setAttribute("aria-label", "Abrir menu");
+    document.body.classList.remove("menu-open");
+  };
+
+  const openMenu = () => {
+    if (!menuToggle || !mainNav) return;
+    menuToggle.classList.add("active");
+    mainNav.classList.add("active");
+    menuToggle.setAttribute("aria-expanded", "true");
+    menuToggle.setAttribute("aria-label", "Fechar menu");
+    document.body.classList.add("menu-open");
+  };
+
+  if (menuToggle && mainNav) {
+    menuToggle.addEventListener("click", () => {
+      mainNav.classList.contains("active") ? closeMenu() : openMenu();
+    });
+
+    mainNav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeMenu);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+  }
+
+  // Estado ativo da navegação
+  const navLinks = [...document.querySelectorAll('.main-nav a[href^="#"]')];
+  const observedSections = navLinks
+    .map((link) => document.querySelector(link.getAttribute("href")))
+    .filter(Boolean);
+
+  if ("IntersectionObserver" in window && observedSections.length) {
+    const navObserver = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (!visible) return;
+
+        navLinks.forEach((link) => {
+          link.classList.toggle(
+            "is-current",
+            link.getAttribute("href") === `#${visible.target.id}`
+          );
+        });
+      },
+      {
+        rootMargin: "-35% 0px -55% 0px",
+        threshold: [0, 0.2, 0.5]
+      }
+    );
+
+    observedSections.forEach((section) => navObserver.observe(section));
+  }
+
+  // ======================================================
+  // WhatsApp
+  // ======================================================
+  const digitsOnly = (value) =>
+    String(value || "").replace(/\D/g, "");
+
+  const whatsappNumber = digitsOnly(config?.profissional?.whatsapp);
+  const whatsappMessage = config?.whatsapp?.mensagem || "";
+  const whatsappElements = document.querySelectorAll(".js-whatsapp");
+
+  if (whatsappNumber.length >= 12) {
+    const whatsappUrl =
+      `https://wa.me/${whatsappNumber}` +
+      (whatsappMessage
+        ? `?text=${encodeURIComponent(whatsappMessage)}`
+        : "");
+
+    whatsappElements.forEach((element) => {
+      element.href = whatsappUrl;
+      element.target = "_blank";
+      element.rel = "noopener";
+      element.classList.remove("is-disabled");
+
+      if (element.textContent.includes("WhatsApp a definir")) {
+        element.innerHTML =
+          '<i class="ph ph-whatsapp-logo"></i> Falar pelo WhatsApp';
+      }
+    });
+
+    if (contactStatus) {
+      contactStatus.textContent =
+        "Você será direcionado para uma conversa com o Guilherme.";
+    }
+  } else {
+    whatsappElements.forEach((element) => {
+      element.href = "#contato";
+      element.classList.add("is-disabled");
+      element.setAttribute(
+        "aria-label",
+        "WhatsApp ainda não informado no arquivo config.js"
+      );
+    });
+  }
+
+  // ======================================================
+  // Prova social / depoimentos — visibilidade controlada por config.js
+  // A seção já vem "hidden" por padrão no HTML (comportamento seguro).
+  // Só é exibida se SITE_CONFIG.provaSocial.depoimentosPublicados === true.
+  // ======================================================
+  document.querySelectorAll("[data-config-toggle]").forEach((section) => {
+    const configPath = section.dataset.configToggle; // ex.: "depoimentosPublicados"
+    const shouldShow = Boolean(config?.provaSocial?.[configPath]);
+
+    if (shouldShow) {
+      section.hidden = false;
+    }
+  });
+
+  // ======================================================
+  // Formulário de contato — monta e abre o WhatsApp
+  // ======================================================
+  // Não existe backend: a mensagem é preparada e aberta no WhatsApp.
+  const contactForm = document.getElementById("contact-form");
+  const contactFormStatus = document.getElementById("contact-form-status");
+  const contactFormSubmit = document.getElementById("contact-form-submit");
+
+  const setFormStatus = (message, type = "info") => {
+    if (!contactFormStatus) return;
+    contactFormStatus.textContent = message;
+    contactFormStatus.dataset.statusType = type;
+  };
+
+  if (contactForm) {
+    if (whatsappNumber.length < 12) {
+      contactFormSubmit?.setAttribute("disabled", "disabled");
+      setFormStatus(
+        "O WhatsApp ainda não foi configurado no arquivo config.js.",
+        "error"
+      );
+    }
+
+    const nomeField = document.getElementById("contact-nome");
+    const mensagemField = document.getElementById("contact-mensagem");
+
+    nomeField?.addEventListener("input", () => {
+      nomeField.classList.remove("is-invalid");
+      nomeField.removeAttribute("aria-invalid");
+      if (nomeField.value.trim()) setFormStatus("");
+    });
+
+    contactForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      if (whatsappNumber.length < 12) {
+        setFormStatus(
+          "Não foi possível abrir o WhatsApp porque o número ainda não foi configurado.",
+          "error"
+        );
+        return;
+      }
+
+      const nome = nomeField?.value.trim() || "";
+      const mensagemDigitada = mensagemField?.value.trim() || "";
+
+      if (!nome) {
+        nomeField?.classList.add("is-invalid");
+        nomeField?.setAttribute("aria-invalid", "true");
+        nomeField?.focus();
+        setFormStatus("Digite seu nome para continuar.", "error");
+        return;
+      }
+
+      if (nome.length < 2) {
+        nomeField?.classList.add("is-invalid");
+        nomeField?.setAttribute("aria-invalid", "true");
+        nomeField?.focus();
+        setFormStatus("Digite um nome válido para continuar.", "error");
+        return;
+      }
+
+      const partesMensagem = [
+        `Olá, Guilherme! Meu nome é ${nome}.`,
+        mensagemDigitada || whatsappMessage
+      ];
+
+      const mensagemFinal = partesMensagem.filter(Boolean).join(" ");
+      const url =
+        `https://wa.me/${whatsappNumber}` +
+        `?text=${encodeURIComponent(mensagemFinal)}`;
+
+      setFormStatus(
+        "Abrindo o WhatsApp com sua mensagem. Confira e envie por lá.",
+        "success"
+      );
+
+      const whatsappWindow = window.open(url, "_blank", "noopener");
+
+      if (!whatsappWindow) {
+        window.location.href = url;
+      }
+    });
+  }
+
+  // ======================================================
+
+  // Reveal with intelligent staggering
+  // ======================================================
+  const revealItems = [...document.querySelectorAll("[data-reveal]")];
+
+  const setRevealDelays = () => {
+    const groupedParents = new Map();
+
+    revealItems.forEach((item) => {
+      const parent = item.parentElement;
+      if (!groupedParents.has(parent)) groupedParents.set(parent, []);
+      groupedParents.get(parent).push(item);
+    });
+
+    groupedParents.forEach((items) => {
+      if (items.length < 2 || items.length > 8) return;
+      items.forEach((item, index) => {
+        item.style.setProperty(
+          "--reveal-delay",
+          `${Math.min(index * 90, 420)}ms`
+        );
+      });
+    });
+  };
+
+  setRevealDelays();
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries, revealObserver) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.11,
+        rootMargin: "0px 0px -45px 0px"
+      }
+    );
+
+    revealItems.forEach((item) => observer.observe(item));
+  } else {
+    revealItems.forEach((item) => item.classList.add("revealed"));
+  }
+
+  // ======================================================
+  // Interactive comparison — abas sem recorte de conteúdo
+  // ======================================================
+  const activateComparison = (targetName) => {
+    comparisonTabs.forEach((tab) => {
+      const isActive = tab.dataset.comparisonTab === targetName;
+      tab.classList.toggle("active", isActive);
+      tab.setAttribute("aria-selected", String(isActive));
+      tab.tabIndex = isActive ? 0 : -1;
+    });
+
+    comparisonPanels.forEach((panel) => {
+      const isActive = panel.dataset.comparisonPanel === targetName;
+      panel.classList.toggle("active", isActive);
+      panel.hidden = !isActive;
+    });
+  };
+
+  comparisonTabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => {
+      activateComparison(tab.dataset.comparisonTab);
+      comparisonSwitcher?.classList.remove("needs-attention");
+    });
+
+    tab.addEventListener("keydown", (event) => {
+      if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) {
+        return;
+      }
+
+      event.preventDefault();
+      comparisonSwitcher?.classList.remove("needs-attention");
+
+      const direction =
+        event.key === "ArrowRight" || event.key === "ArrowDown" ? 1 : -1;
+      const nextIndex =
+        (index + direction + comparisonTabs.length) % comparisonTabs.length;
+      const nextTab = comparisonTabs[nextIndex];
+
+      activateComparison(nextTab.dataset.comparisonTab);
+      nextTab.focus();
+    });
+  });
+
+  if (comparisonTabs.length) {
+    const initialTab =
+      [...comparisonTabs].find((tab) => tab.classList.contains("active")) ||
+      comparisonTabs[0];
+
+    activateComparison(initialTab.dataset.comparisonTab);
+  }
+
+  // ======================================================
+  // FAQ
+  // ======================================================
+  document.querySelectorAll(".faq-question").forEach((button) => {
+    button.addEventListener("click", () => {
+      const item = button.closest(".faq-item");
+      const wasActive = item.classList.contains("active");
+
+      document.querySelectorAll(".faq-item").forEach((faqItem) => {
+        faqItem.classList.remove("active");
+        const faqButton = faqItem.querySelector(".faq-question");
+        if (faqButton) {
+          faqButton.setAttribute("aria-expanded", "false");
+        }
+      });
+
+      if (!wasActive) {
+        item.classList.add("active");
+        button.setAttribute("aria-expanded", "true");
+      }
+    });
+  });
+
+  // ======================================================
+  // Pointer aura and hero spotlight
+  // ======================================================
+  if (supportsHover.matches && !lowPowerDevice) {
+    document.body.classList.add("has-pointer");
+
+    let pointerX = window.innerWidth / 2;
+    let pointerY = window.innerHeight / 2;
+    let auraX = pointerX;
+    let auraY = pointerY;
+    let auraFrame = null;
+
+    const animateAura = () => {
+      auraX += (pointerX - auraX) * 0.14;
+      auraY += (pointerY - auraY) * 0.14;
+
+      document.documentElement.style.setProperty(
+        "--mouse-x",
+        `${auraX}px`
+      );
+      document.documentElement.style.setProperty(
+        "--mouse-y",
+        `${auraY}px`
+      );
+
+      auraFrame = requestAnimationFrame(animateAura);
+    };
+
+    document.addEventListener(
+      "pointermove",
+      (event) => {
+        pointerX = event.clientX;
+        pointerY = event.clientY;
+
+        if (hero) {
+          const rect = hero.getBoundingClientRect();
+          const x = ((event.clientX - rect.left) / rect.width) * 100;
+          const y = ((event.clientY - rect.top) / rect.height) * 100;
+          hero.style.setProperty("--hero-x", `${x}%`);
+          hero.style.setProperty("--hero-y", `${y}%`);
+        }
+      },
+      { passive: true }
+    );
+
+    if (!motionReduced) {
+      auraFrame = requestAnimationFrame(animateAura);
+    }
+
+    motionToggle?.addEventListener("click", () => {
+      if (motionReduced && auraFrame) {
+        cancelAnimationFrame(auraFrame);
+        auraFrame = null;
+      } else if (!motionReduced && !auraFrame) {
+        auraFrame = requestAnimationFrame(animateAura);
+      }
+    });
+  }
+
+  // ======================================================
+  // 3D tilt cards
+  // ======================================================
+  const tiltElements = document.querySelectorAll("[data-tilt]");
+
+  if (!lowPowerDevice) {
+    tiltElements.forEach((element) => {
+      const depth = Number(element.dataset.depth || 8) * 0.55;
+
+      element.addEventListener("pointerenter", () => {
+        if (!supportsHover.matches || motionReduced) return;
+        element.classList.add("is-interacting");
+      });
+
+      element.addEventListener("pointermove", (event) => {
+        if (!supportsHover.matches || motionReduced) return;
+
+        const rect = element.getBoundingClientRect();
+        const localX = event.clientX - rect.left;
+        const localY = event.clientY - rect.top;
+        const percentX = localX / rect.width;
+        const percentY = localY / rect.height;
+
+        const rotateY = (percentX - 0.5) * depth;
+        const rotateX = (0.5 - percentY) * depth;
+
+        element.style.setProperty("--tilt-x", `${rotateX}deg`);
+        element.style.setProperty("--tilt-y", `${rotateY}deg`);
+        element.style.setProperty("--surface-x", `${percentX * 100}%`);
+        element.style.setProperty("--surface-y", `${percentY * 100}%`);
+      });
+
+      element.addEventListener("pointerleave", () => {
+        element.classList.remove("is-interacting");
+        element.style.setProperty("--tilt-x", "0deg");
+        element.style.setProperty("--tilt-y", "0deg");
+        element.style.setProperty("--surface-x", "50%");
+        element.style.setProperty("--surface-y", "50%");
+      });
+    });
+  }
+
+  // ======================================================
+
+  // Magnetic buttons
+  // ======================================================
+  document.querySelectorAll("[data-magnetic]").forEach((element) => {
+    element.addEventListener("pointermove", (event) => {
+      if (!supportsHover.matches || motionReduced) return;
+
+      const rect = element.getBoundingClientRect();
+      const x = event.clientX - rect.left - rect.width / 2;
+      const y = event.clientY - rect.top - rect.height / 2;
+
+      element.style.setProperty("--magnetic-x", `${x * 0.08}px`);
+      element.style.setProperty("--magnetic-y", `${y * 0.08}px`);
+    });
+
+    element.addEventListener("pointerleave", () => {
+      element.style.setProperty("--magnetic-x", "0px");
+      element.style.setProperty("--magnetic-y", "0px");
+    });
+  });
+
+  // ======================================================
+  // Card spotlight
+  // ======================================================
+  document.querySelectorAll("[data-spotlight-card]").forEach((card) => {
+    card.addEventListener("pointermove", (event) => {
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty(
+        "--spot-x",
+        `${event.clientX - rect.left}px`
+      );
+      card.style.setProperty(
+        "--spot-y",
+        `${event.clientY - rect.top}px`
+      );
+    });
+  });
+
+  // ======================================================
+  // Animated Nexus network canvas
+  // ======================================================
+  const createNetwork = (canvas) => {
+    if (!canvas || lowPowerDevice) {
+      return { start() {}, stop() {} };
+    }
+
+    const context = canvas.getContext("2d");
+    let nodes = [];
+    let animationFrame = null;
+    let running = false;
+    let width = 0;
+    let height = 0;
+    let pointer = { x: -1000, y: -1000 };
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 1.6);
+
+    const resize = () => {
+      const rect = canvas.getBoundingClientRect();
+      width = Math.max(1, rect.width);
+      height = Math.max(1, rect.height);
+
+      canvas.width = Math.floor(width * pixelRatio);
+      canvas.height = Math.floor(height * pixelRatio);
+      context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+
+      const desiredCount = Math.min(
+        46,
+        Math.max(20, Math.floor(width / 30))
+      );
+
+      nodes = Array.from({ length: desiredCount }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.14,
+        vy: (Math.random() - 0.5) * 0.14,
+        radius: 1 + Math.random() * 1.3,
+        pulse: Math.random() * Math.PI * 2
+      }));
+    };
+
+    const draw = () => {
+      if (!running) return;
+
+      context.clearRect(0, 0, width, height);
+
+      nodes.forEach((node) => {
+        node.x += node.vx;
+        node.y += node.vy;
+        node.pulse += 0.009;
+
+        if (node.x < -20) node.x = width + 20;
+        if (node.x > width + 20) node.x = -20;
+        if (node.y < -20) node.y = height + 20;
+        if (node.y > height + 20) node.y = -20;
+
+        const dx = pointer.x - node.x;
+        const dy = pointer.y - node.y;
+        const pointerDistance = Math.hypot(dx, dy);
+
+        if (pointerDistance < 130 && pointerDistance > 0) {
+          node.x -= (dx / pointerDistance) * 0.09;
+          node.y -= (dy / pointerDistance) * 0.09;
+        }
+      });
+
+      for (let i = 0; i < nodes.length; i += 1) {
+        for (let j = i + 1; j < nodes.length; j += 1) {
+          const a = nodes[i];
+          const b = nodes[j];
+          const distance = Math.hypot(a.x - b.x, a.y - b.y);
+
+          if (distance < 110) {
+            const opacity = (1 - distance / 110) * 0.12;
+            context.beginPath();
+            context.moveTo(a.x, a.y);
+            context.lineTo(b.x, b.y);
+            context.strokeStyle = `rgba(0, 58, 93, ${opacity})`;
+            context.lineWidth = 0.7;
+            context.stroke();
+          }
+        }
+      }
+
+      nodes.forEach((node) => {
+        const pulse = 0.82 + Math.sin(node.pulse) * 0.18;
+        context.beginPath();
+        context.arc(node.x, node.y, node.radius * pulse, 0, Math.PI * 2);
+        context.fillStyle = "rgba(86, 124, 153, 0.44)";
+        context.fill();
+      });
+
+      animationFrame = requestAnimationFrame(draw);
+    };
+
+    const start = () => {
+      if (running || motionReduced || lowPowerDevice || !heroInViewport) return;
+      running = true;
+      if (!nodes.length) resize();
+      animationFrame = requestAnimationFrame(draw);
+    };
+
+    const stop = () => {
+      running = false;
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+        animationFrame = null;
+      }
+      context.clearRect(0, 0, width, height);
+    };
+
+    const handlePointer = (event) => {
+      const rect = canvas.getBoundingClientRect();
+      pointer.x = event.clientX - rect.left;
+      pointer.y = event.clientY - rect.top;
+    };
+
+    hero?.addEventListener("pointermove", handlePointer, { passive: true });
+    hero?.addEventListener("pointerleave", () => {
+      pointer = { x: -1000, y: -1000 };
+    });
+
+    window.addEventListener("resize", () => {
+      if (running) resize();
+    });
+
+    return { start, stop };
+  };
+
+  networkController = createNetwork(networkCanvas);
+
+  if (hero && "IntersectionObserver" in window) {
+    const heroNetworkObserver = new IntersectionObserver(
+      ([entry]) => {
+        heroInViewport = Boolean(entry?.isIntersecting);
+        syncNetworkState();
+      },
+      { threshold: 0.04 }
+    );
+
+    heroNetworkObserver.observe(hero);
+  }
+
+  syncNetworkState();
+
+  // ======================================================
+
+  // Back to top
+  // ======================================================
+  if (backToTop) {
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+});

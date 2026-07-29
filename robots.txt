@@ -1,0 +1,9 @@
+# robots.txt — Nexus Vital
+# URL pública atual: GitHub Pages.
+# Ao configurar um domínio próprio, atualize também o sitemap.xml,
+# o index.html e o config.js.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://lipeprieto.github.io/guilherme-dos-santos-personal/sitemap.xml
