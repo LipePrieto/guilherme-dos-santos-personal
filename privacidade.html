@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Política de Privacidade | Nexus Vital</title>
+  <meta name="description" content="Política de privacidade do site Nexus Vital: quais dados são coletados, como são usados e os direitos da pessoa titular dos dados.">
+  <meta name="robots" content="noindex, follow">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <style>
+    /* Ajustes pontuais só desta página (não afetam o site principal) */
+    .legal-main {
+      padding-top: calc(var(--header-height) + 48px);
+    }
+    .legal-content h2 {
+      margin-top: 40px;
+      font-size: clamp(1.3rem, 2.4vw, 1.6rem);
+    }
+    .legal-content p,
+    .legal-content li {
+      max-width: 720px;
+      color: var(--text);
+    }
+    .legal-content ul {
+      padding-left: 22px;
+    }
+    .legal-updated {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    .legal-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 30px;
+      color: var(--blue-800);
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header scrolled" id="inicio">
+    <div class="container header-inner">
+      <a href="index.html#inicio" class="brand" aria-label="Nexus Vital — início">
+        <span class="brand-mark" aria-hidden="true">NV</span>
+        <span class="brand-copy">
+          <strong>NEXUS VITAL</strong>
+          <small>por Guilherme dos Santos</small>
+        </span>
+      </a>
+    </div>
+  </header>
+
+  <main class="legal-main">
+    <section class="section section-light narrow container legal-content">
+      <a href="index.html" class="legal-back">
+        <i class="ph ph-arrow-left"></i> Voltar para o site
+      </a>
+
+      <span class="section-kicker">Nexus Vital</span>
+      <h1 style="font-size: clamp(2rem, 4vw, 2.8rem);">Política de Privacidade</h1>
+      <p class="legal-updated">Última atualização: [preencher data de publicação]</p>
+
+      <p>
+        Esta página explica, de forma simples, quais informações o site
+        <strong>Nexus Vital</strong> coleta quando você o visita, para que
+        servem e quais são os seus direitos sobre elas.
+      </p>
+
+      <h2>1. Quais dados este site coleta</h2>
+      <p>
+        O Nexus Vital é um site estático, sem sistema de cadastro e sem banco
+        de dados. Os únicos dados pessoais tratados aqui são os que você
+        digita, por sua própria vontade, no <strong>formulário de contato</strong>
+        (nome e mensagem) ou nos <strong>botões de WhatsApp</strong> espalhados
+        pelo site.
+      </p>
+
+      <h2>2. Como esses dados são usados</h2>
+      <p>
+        O formulário de contato não envia nada para um servidor: ele apenas
+        organiza o texto que você escreveu e abre o WhatsApp (aplicativo ou
+        versão web) com uma mensagem pronta, para que você mesmo(a) confira e
+        envie diretamente para o Guilherme dos Santos pelo WhatsApp. A partir
+        daí, a conversa segue pelo WhatsApp, sujeita à política de privacidade
+        do próprio WhatsApp.
+      </p>
+      <p>
+        Este site, por si só, não armazena, não processa e não tem acesso ao
+        conteúdo que você digita no formulário.
+      </p>
+
+      <h2>3. Cookies e ferramentas de rastreamento</h2>
+      <p>
+        No momento, este site não utiliza cookies próprios, pixels de
+        rastreamento ou ferramentas de análise de tráfego (como Google
+        Analytics). Caso isso mude no futuro, esta política será atualizada
+        para refletir com precisão as ferramentas em uso.
+      </p>
+
+      <h2>4. Compartilhamento com terceiros</h2>
+      <p>
+        Este site não compartilha, vende ou transfere dados pessoais a
+        terceiros, porque não coleta nem armazena esses dados em nenhum
+        momento.
+      </p>
+
+      <h2>5. Seus direitos</h2>
+      <p>
+        De acordo com a Lei Geral de Proteção de Dados (LGPD), você tem
+        direito a solicitar informações sobre eventuais dados tratados,
+        correção ou exclusão de mensagens trocadas por WhatsApp, entre outros
+        direitos previstos em lei. Para qualquer dúvida, entre em contato:
+      </p>
+      <ul>
+        <li>E-mail: <span data-privacy-email>[e-mail a confirmar]</span></li>
+        <li>WhatsApp: através dos botões disponíveis no site</li>
+      </ul>
+
+      <h2>6. Alterações nesta política</h2>
+      <p>
+        Esta política pode ser atualizada sempre que houver mudanças reais no
+        funcionamento do site (por exemplo, se um formulário passar a ter
+        backend próprio, ou se ferramentas de análise forem adicionadas). A
+        data no topo desta página indica a última atualização.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <p>© <span data-privacy-year></span> Nexus Vital. Todos os direitos reservados.</p>
+      <p><a href="index.html">Voltar para a página inicial</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // Pequeno script independente, só para esta página (ano atual e,
+    // se disponível, o e-mail já configurado em config.js).
+    document.querySelector("[data-privacy-year]").textContent = new Date().getFullYear();
+  </script>
+  <script src="config.js"></script>
+  <script>
+    (function () {
+      var emailSpan = document.querySelector("[data-privacy-email]");
+      var email = window.SITE_CONFIG && SITE_CONFIG.profissional && SITE_CONFIG.profissional.email;
+      if (emailSpan && email) {
+        emailSpan.textContent = email;
+      }
+    })();
+  </script>
+</body>
+</html>
